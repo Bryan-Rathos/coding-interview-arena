@@ -4,6 +4,7 @@ MNIST data loading util.
 
 import gzip
 import matplotlib.pyplot as plt
+import matplotlib.cm as cm
 import numpy as np
 import pickle
 import os
@@ -84,10 +85,10 @@ def init_mnist():
     print("Done")
 
 
-def _change_ont_hot_label(X):
-    T = np.zeros((X.size, 10))
+def _change_ont_hot_label(input_image):
+    T = np.zeros((input_image.size, 10))
     for idx, row in enumerate(T):
-        row[X[idx]] = 1
+        row[input_image[idx]] = 1
 
     return T
 
@@ -131,3 +132,24 @@ def img_show(img, label):
     plt.title('Label is {label}'.format(label=label))
     plt.imshow(pixels, cmap='gray')
     plt.show()
+
+
+def visualize_mnist_grid(input_image, n=20, data_img_rows=28,
+                         data_img_cols=28, data_img_channels=1):
+    N = n**2
+    D = data_img_channels
+    R = data_img_rows
+    C = data_img_cols
+    images = input_image[0:N].reshape(N, D, R, C).reshape(
+        n, n, D, R, C).transpose(0, 1, 3, 4, 2)
+    img = images.swapaxes(1, 2).reshape(R*n, C*n, D)
+    if D == 1:
+        img = img.reshape(R*n, C*n)
+    fig = plt.imshow(img, cmap=cm.gray)
+    fig.axes.get_xaxis().set_visible(False)
+    fig.axes.get_yaxis().set_visible(False)
+
+    # Plot image.
+    plt.show()
+
+    return plt

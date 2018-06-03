@@ -21,7 +21,7 @@ def model(data_a, data_b, sigma):
         sigma: Bandwidth
 
     Returns:
-        L: Mean
+        L: Mean log-probability
     """
 
     len_a = data_a.shape[0]
