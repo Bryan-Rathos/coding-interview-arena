@@ -3,13 +3,31 @@
 
 class vector {
 
-    int sz;
-    double* elem;
-
-    void copy(const vector& arg); // copy elements from arg into elem
+    int sz;         // the size
+    double* elem;   // pointer to the elements
+    int space;      // number of elements plus number of free slots
 
 public:
-    vector(const vector&); // copy constructor: define copy
+    vector() : sz(0), elem(0), space(0) {}
+    explicit vector(int s) :sz(s), elem(new double[sz]), space(s)
+    {
+        for (int i=0; i<sz; ++i) elem[i]=0; // elements are initialized
+    }
+
+    vector(const vector&);              // copy constructor
+    vector& operator=(const vector&);   // copy assignment
+
+    ~vector() { delete[] elem;}         // destructor
+
+    double& operator[](int n){ return elem[n]; }    // access
+    const double& operator[](int n) const { return elem[n]; }
+
+    int size() const { return sz; }
+    int capacity() const { return space; }
+
+    void resize(int newsize);           // growth
+    void push_back(double d);
+    void reserve(int newalloc);
 
 };
 
