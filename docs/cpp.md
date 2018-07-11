@@ -32,7 +32,10 @@ int* q = new int(p*);  // allocate a new int then copy the value of p
 ```
 
 ## Templates
+- A mechanism to use types as parameters for a class or a function.
+- The compiler then generates a specific class of function when we later provide specific types as arguments.
 - Allow function and classes to have generic type. This allows a function or a class to work on many different data types without being rewritten for each one.
+- A class template can also be called a ```type generator```.
 
 ```
 template <class identifier> function_declaration;
@@ -183,6 +186,28 @@ exist even if no objects of the class have been instantiated!
 - If the static member variables are public, we can access them directly using the class name and
 the scope resolution operator. But if the static member variables are private, static member functions
 can be used to access that private member variable.
+
+## Generic Programming
+- Writing code that works with a variety of types presented as arguments.
+- ```class template``` when we parameterize a class, this is often called ```parameterized type``` or
+```parameterized class```.
+- ```parameterized function``` when we parameterize a function.
+- This form of generic programming relying on explicit template parameters is called ```parametric polymorphism```.
+- In contrast, the polymorphism you get from using class heirarchies and virtual functions is called
+```ad hoc polymorphism``` and that style of programming is called ```object-oriented programming```.
+- There are several differences between object-oriented programming (using class heirarchies and virtual functions) and
+generic programming (using templates).
+    - Most obvious is that the choice of function invoked when you use generic programming is determined by the
+    compiler at compile time; whereas for object-oriented programming, it is not determined until run time.
+```
+my_vector.push_back(x);     // put x into a vector
+circle.draw();              // draw the shape circle
+```
+- In the examples above, for ```push_back``` the compiler will determine the element type but for ```draw``` the
+compiler will indirectly call some ```draw()``` function.
+- To sum up:
+    - Generic programming: supported by templates, relying on compile-time resolution
+    - OOP: supported by class hierarchies and virtual functions, relying on run-time resolution.
 
 
 
